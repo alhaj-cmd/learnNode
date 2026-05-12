@@ -1,4 +1,5 @@
 import type { IncomingMessage, ServerResponse } from "node:http";
+import { productController } from "../controller/productControler";
 
 export const routeHandle =(req:IncomingMessage, res:ServerResponse) =>{
     const url = req.url;
@@ -8,8 +9,7 @@ export const routeHandle =(req:IncomingMessage, res:ServerResponse) =>{
         res.writeHead(200, {"content-type": "application/json"});
         res.end(JSON.stringify({message:"This is root route"}))
     } else if(url?.startsWith('/products')){
-        res.writeHead(200, {"content-type": "application/json"});
-        res.end(JSON.stringify({message:"This is root product site"}))
+       productController(req,res);
     }
      else{
         res.writeHead(404, {'content-type': 'application/json'});
