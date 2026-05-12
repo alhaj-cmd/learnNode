@@ -7,15 +7,7 @@ export const productController = (req: IncomingMessage, res: ServerResponse) => 
     const method = req.method;
     if (url === "/products" && method === "GET") {
 
-        const productDetails = [
-        {
-            "id": 1,
-            "name": "Rahim",
-            "age": 22
-        }
-        
-    ];
-     readProduct();
+        const productDetails = readProduct();
         res.writeHead(200, { "content-type": "application/json" });
         res.end(JSON.stringify({
             message: "Our products Controller",
