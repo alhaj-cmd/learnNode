@@ -4,7 +4,7 @@ import type { IProduct } from "../productType/productType";
 import { parseBody } from "../utility/parseBody";
 
 export const productController = async (req: IncomingMessage, res: ServerResponse) => {
-    
+    console.log("request", req);
     const url = req.url;
     const method = req.method;
 
@@ -32,12 +32,12 @@ export const productController = async (req: IncomingMessage, res: ServerRespons
             data: product
         }))
     }
-    else if (method === "POST" && url ==='./products'){
+    else if (method === "POST" && url ==='/products'){
         const body = await parseBody(req);
-        console.log(body);
+        console.log('Body' ,body);
         res.writeHead(200, { "content-type": "application/json" });
         res.end(JSON.stringify({
-            message: "Our products Controller",
+            message: "Post products Controller",
             // data: product
         }))
     }
