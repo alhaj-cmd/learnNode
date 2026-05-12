@@ -1,10 +1,18 @@
 import type { IncomingMessage, ServerResponse } from "node:http";
 import { readProduct } from "../service/product.service";
+import  { IProduct } from "../productType/productType";
 
 export const productController = (req: IncomingMessage, res: ServerResponse) => {
     
     const url = req.url;
     const method = req.method;
+
+    const urlParts = url?.split("/");
+    const id =urlParts && urlParts[1] === 'products' ? Number(urlParts[2]) : null; 
+    console.log("tomar id pawa gece", id);
+
+    // Get All products
+  
     if (url === "/products" && method === "GET") {
 
         const productDetails = readProduct();
@@ -13,6 +21,14 @@ export const productController = (req: IncomingMessage, res: ServerResponse) => 
             message: "Our products Controller",
             data: productDetails
         }))
+    } else if (method === "GET" && id !==null){
+        const productDetails = readProduct();
+        const product = productDetails.find((p: IProduct)=>p.id === id);
+        // console.log(product);
+        res.writeHead(200, { "content-type": "application/json" });
+        res.end(JSON.stringify({
+            message: "Our products Controller",
+            data: product
+        }))
     }
-
 }
