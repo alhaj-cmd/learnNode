@@ -8,3 +8,7 @@ export const readProduct = ()=>{
     // console.log(JSON.parse(products));
     return JSON.parse(products);
 }
+export const inserProduct =(payload: any)=>{
+    console.log("inserted product",payload);
+    fs.writeFileSync(filePath, JSON.stringify(payload));
+}
